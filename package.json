@@ -1,0 +1,26 @@
+{
+  "name": "visit-and-smile-langgraph",
+  "version": "1.0.0",
+  "description": "Visit & Smile — Backend LangGraph (Chef Agent persistant)",
+  "private": true,
+  "type": "module",
+  "main": "api.js",
+  "scripts": {
+    "start": "node api.js",
+    "dev": "node --watch api.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@langchain/anthropic": "^0.3.15",
+    "@langchain/core": "^0.3.40",
+    "@langchain/langgraph": "^0.2.46",
+    "@langchain/langgraph-checkpoint-postgres": "^0.0.15",
+    "@supabase/supabase-js": "^2.49.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "pg": "^8.13.3",
+    "zod": "^3.24.1"
+  }
+}
