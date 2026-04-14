@@ -139,10 +139,19 @@ app.get('/api/health', (_, res) => {
 
 // ─── Démarrage ──────────────────────────────────────────
 async function start() {
-    await initGraph(); // initialiser le graphe + checkpointer au démarrage
+    // Démarrer le serveur immédiatement (healthcheck dispo dès le lancement)
     app.listen(PORT, () => {
         console.log(`🚀 Visit & Smile LangGraph API → http://localhost:${PORT}`);
     });
+
+    // Initialiser le graphe en arrière-plan (nécessite SUPABASE_DB_URL)
+    if (process.env.SUPABASE_DB_URL) {
+        initGraph()
+            .then(() => console.log('[LangGraph] Graphe prêt ✅'))
+            .catch(err => console.error('[LangGraph] Échec init graphe:', err.message));
+    } else {
+        console.warn('[LangGraph] SUPABASE_DB_URL manquant — graphe non initialisé (ajoutez la variable)');
+    }
 }
 
 start().catch(console.error);
