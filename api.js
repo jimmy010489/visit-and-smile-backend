@@ -32,9 +32,10 @@ app.use(cors({
 app.use(express.json());
 
 // Supabase pour vérifier les sessions utilisateur
+// Valeurs par défaut pour que le serveur démarre sans planter (variables ajoutées ensuite)
 const supabase = createClient(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_KEY
+    process.env.SUPABASE_URL        || 'https://placeholder.supabase.co',
+    process.env.SUPABASE_SERVICE_KEY || 'placeholder-key'
 );
 
 // ─── Middleware : vérifier le token Supabase ─────────────
@@ -131,7 +132,7 @@ app.get('/api/graph/sessions', authMiddleware, async (req, res) => {
 
 /**
  * GET /api/health
- * Health check
+ * Health check — répond immédiatement, sans dépendance Supabase/DB
  */
 app.get('/api/health', (_, res) => {
     res.json({ status: 'ok', service: 'Visit & Smile LangGraph API', timestamp: new Date().toISOString() });
